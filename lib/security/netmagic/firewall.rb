@@ -15,9 +15,10 @@ module Security
 			end
 
 			def get_rules
-				response_body = get("multitier/firewallrules/#{get_component_id}")
-				puts "No. of rules: #{Nokogiri::XML(response_body).xpath("//Response/Rules/Rule").length}"
-				response_body
+				response_body = get("multitier/firewallrules/#{get_component_id}", "application/json")
+				rules = JSON.parse(response_body)["Response"]["Rules"].first["Rule"]
+				puts "No. of rules: #{rules.length}"
+				rules
 			end
 
 			def get_component_id
@@ -91,13 +92,13 @@ module Security
 
 			end
 
-			def get(url)
+			def get(url, content_type =nil)
 				uri = uri_for(url)
 
 				puts "[DEBUG] uri => #{uri.inspect}"
 				get_req = Net::HTTP::Get.new(uri)
-				get_req['Accept'] = "application/xml"
-				get_req['Content-Type'] = "application/xml"
+				get_req['Accept'] = content_type || "application/xml"
+				get_req['Content-Type'] = content_type || "application/xml"
 				res = Net::HTTP.start(uri.hostname, uri.port, :use_ssl => uri.scheme == 'https') {|http|
 					  http.request(get_req)
 				}
@@ -132,8 +133,10 @@ module Security
 end
 
 firewall = Security::Netmagic::Firewall.new(Config::SecurityConfig.new)
-puts "Before Delete, Rule: #{Nokogiri::XML(firewall.get_rules).xpath("//Response/Rules/Rule[srcIpZone=\"WEB-Zone\" and destIpZone=\"APP-Zone\"]").to_xml}"
+puts firewall.get_rules.select{ |rule| rule["srcIpZone"] == "WEB-Zone" && rule["destIpZone"] == "APP-Zone" }
+
 firewall.delete_rule("5", "WEB-Zone", "APP-Zone")
-puts "After Delete, Rule: #{Nokogiri::XML(firewall.get_rules).xpath("//Response/Rules/Rule[srcIpZone=\"WEB-Zone\" and destIpZone=\"APP-Zone\"]").to_xml}"
+puts firewall.get_rules.select{ |rule| rule["srcIpZone"] == "WEB-Zone" && rule["destIpZone"] == "APP-Zone" }
+\
 firewall.add_rule("WEB-Zone", "10.10.13.2", "APP-Zone", "10.10.18.2", "22", "5")
-puts "After Add, Rule: #{Nokogiri::XML(firewall.get_rules).xpath("//Response/Rules/Rule[srcIpZone=\"WEB-Zone\" and destIpZone=\"APP-Zone\"]").to_xml}"
+puts firewall.get_rules.select{ |rule| rule["srcIpZone"] == "WEB-Zone" && rule["destIpZone"] == "APP-Zone" }
