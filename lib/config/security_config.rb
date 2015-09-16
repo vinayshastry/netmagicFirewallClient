@@ -5,6 +5,7 @@ module Config
     end
 
     def get_api_credentials
+        puts 
     	{"api_key" => ENV["NETMAGIC_API_KEY"], "secret_code" => ENV["NETMAGIC_SECRET_CODE"]}
     end
 

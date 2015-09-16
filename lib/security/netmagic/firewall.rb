@@ -15,6 +15,7 @@ module Security
 			end
 
 			def get_rules
+				puts "========= Get Rules ========="
 				response_body = get("multitier/firewallrules/#{get_component_id}", "application/json")
 				rules = JSON.parse(response_body)["Response"]["Rules"].first["Rule"]
 				puts "No. of rules: #{rules.length}"
@@ -23,6 +24,7 @@ module Security
 
 			def get_component_id
 				unless @component_id
+					puts "========= Get Component Id ========="
 					response_body = get("devices/cust/device/#{@config.get_firewall_id}")
 					@component_id = Nokogiri::XML(response_body).xpath("//CloudComponent/cloud_app_component_id").text
 				end
@@ -30,10 +32,14 @@ module Security
 			end
 
 			def delete_rule(rule_number, source_zone, destination_zone)
+				puts "========= Delete Rules ========="
 				uri = uri_for("multitier/#{get_component_id}/#{rule_number}", "srczone" => source_zone, "destzone" => destination_zone)
+
+				puts "[DEBUG] uri => #{uri.inspect}"
 				delete_req = Net::HTTP::Delete.new(uri)
 				delete_req['Accept'] = "application/xml"
 				delete_req['Content-Type'] = "application/xml"
+				puts "[DEBUG] request_body => #{delete_req.inspect}"
 				res = Net::HTTP.start(uri.hostname, uri.port, :use_ssl => uri.scheme == 'https') {|http|
 					  http.request(delete_req)
 				}
@@ -43,9 +49,7 @@ module Security
 				else
 					raise "Error with DELETE, uri: #{uri}, code: #{res.code}, body: #{res.body}"
 				end
-
 			end
-
 
 			def add_rule(source_zone, source_ip, destination_zone, destination_ip, destination_port, rule_number)
 				rule = {"Request" => { "Parameters" => { 
@@ -68,9 +72,10 @@ module Security
 			def uri_for(url, params = nil)
 				additional_params = params ? "&#{to_query(params)}" : ""
 				URI("#{@config.get_netmagic_base_url}/api/#{API_VERSION}/#{url}?#{to_query(credential_params({"version" => API_VERSION}))}#{additional_params}")
-			end	
+			end
 
 			def post(url, request_body)
+				puts "========= Add Rules ========="
 				uri = uri_for(url)
 
 				puts "[DEBUG] uri => #{uri.inspect}"
@@ -132,11 +137,14 @@ module Security
 	end
 end
 
-firewall = Security::Netmagic::Firewall.new(Config::SecurityConfig.new)
-puts firewall.get_rules.select{ |rule| rule["srcIpZone"] == "WEB-Zone" && rule["destIpZone"] == "APP-Zone" }
+# firewall = Security::Netmagic::Firewall.new(Config::SecurityConfig.new)
+# puts firewall.get_rules.select{ |rule| rule["srcIpZone"] == "WEB-Zone" && rule["destIpZone"] == "APP-Zone" }
 
-firewall.delete_rule("5", "WEB-Zone", "APP-Zone")
-puts firewall.get_rules.select{ |rule| rule["srcIpZone"] == "WEB-Zone" && rule["destIpZone"] == "APP-Zone" }
-\
-firewall.add_rule("WEB-Zone", "10.10.13.2", "APP-Zone", "10.10.18.2", "22", "5")
-puts firewall.get_rules.select{ |rule| rule["srcIpZone"] == "WEB-Zone" && rule["destIpZone"] == "APP-Zone" }
+# firewall.delete_rule("5", "WEB-Zone", "APP-Zone")
+
+# puts firewall.get_rules.select{ |rule| rule["srcIpZone"] == "WEB-Zone" && rule["destIpZone"] == "APP-Zone" }
+
+# firewall.add_rule("WEB-Zone", "10.10.13.2", "APP-Zone", "10.10.18.2", "22", "5")
+# firewall.add_rule("WEB-Zone", "0.0.0.0/0", "APP-Zone", "0.0.0.0/0", "22", "5")
+
+# puts firewall.get_rules.select{ |rule| rule["srcIpZone"] == "WEB-Zone" && rule["destIpZone"] == "APP-Zone" }

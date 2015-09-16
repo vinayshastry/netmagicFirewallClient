@@ -1,0 +1,8 @@
+nginx:
+  ip: 10.10.13.2
+  ports:
+    - 443
+gatekeeper: 
+  ip: 10.10.18.2
+  ports:
+    - 8002
