@@ -7,7 +7,6 @@ describe "Signature" do
     params, sign_str = signature.generate("timeStamp" => time, "version" => "1.0")
 
     expect(params["apiKey"]).to eq("key")
-    puts "[DEBUG] sign_str => #{sign_str.inspect}"
     expect(sign_str.to_s).to eq('aGS0kFzuCs0FqDJfwYPo2THXJH0%3D')
   end
 end

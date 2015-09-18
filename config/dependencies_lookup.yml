@@ -1,4 +1,3 @@
 dependencies:
-  - src_vm: nginx
-    dest_vm: gatekeeper
-    rule_number: 5
+  - src_vm: gatekeeper
+    dest_vm: nginx
