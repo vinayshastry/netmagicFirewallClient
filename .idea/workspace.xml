@@ -2,16 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f88bf0f8-1384-4d59-aa51-3a329f7e0e9d" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gemfile.lock" afterPath="$PROJECT_DIR$/Gemfile.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gemfile" afterPath="$PROJECT_DIR$/Gemfile" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/http/client.rb" afterPath="$PROJECT_DIR$/lib/http/client.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/dependencies_lookup.yml" afterPath="$PROJECT_DIR$/config/dependencies_lookup.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/security/firewall/netmagic_client.rb" afterPath="$PROJECT_DIR$/lib/security/firewall/netmagic_client.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/spec/security/firewall/netmagic_client_spec.rb" afterPath="$PROJECT_DIR$/spec/security/firewall/netmagic_client_spec.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/security/firewall/rule_manager.rb" afterPath="$PROJECT_DIR$/lib/security/firewall/rule_manager.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/config/security_config.rb" afterPath="$PROJECT_DIR$/lib/config/security_config.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/config/zone_lookup.rb" afterPath="$PROJECT_DIR$/lib/config/zone_lookup.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/spec/config/zone_lookup_spec.rb" afterPath="$PROJECT_DIR$/spec/config/zone_lookup_spec.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/spec/security/firewall/rule_manager_spec.rb" afterPath="$PROJECT_DIR$/spec/security/firewall/rule_manager_spec.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="netmagicFirewallClient.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -36,24 +29,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="rule_manager_spec.rb" pinned="false" current-in-tab="false">
+      <file leaf-file-name="rule_manager_spec.rb" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/spec/security/firewall/rule_manager_spec.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="47" column="0" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.47291362">
+              <caret line="72" column="0" selection-start-line="72" selection-start-column="0" selection-end-line="72" selection-end-column="0" />
               <folding>
-                <marker date="1442772315000" expanded="true" signature="322:336" placeholder="..." />
+                <marker date="1442775663000" expanded="true" signature="322:336" placeholder="..." />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="rule_manager.rb" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/lib/security/firewall/rule_manager.rb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.33235726">
-              <caret line="34" column="18" selection-start-line="34" selection-start-column="18" selection-end-line="34" selection-end-column="18" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -548,21 +531,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/spec/security/firewall/rule_manager_spec.rb">
+    <entry file="file://$PROJECT_DIR$/lib/security/firewall/rule_manager.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="47" column="0" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
-          <folding>
-            <marker date="1442772315000" expanded="true" signature="322:336" placeholder="..." />
-          </folding>
+        <state vertical-scroll-proportion="0.658858">
+          <caret line="120" column="10" selection-start-line="120" selection-start-column="10" selection-end-line="120" selection-end-column="10" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/security/firewall/rule_manager.rb">
+    <entry file="file://$PROJECT_DIR$/spec/security/firewall/rule_manager_spec.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33235726">
-          <caret line="34" column="18" selection-start-line="34" selection-start-column="18" selection-end-line="34" selection-end-column="18" />
-          <folding />
+        <state vertical-scroll-proportion="0.47291362">
+          <caret line="72" column="0" selection-start-line="72" selection-start-column="0" selection-end-line="72" selection-end-column="0" />
+          <folding>
+            <marker date="1442775663000" expanded="true" signature="322:336" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
