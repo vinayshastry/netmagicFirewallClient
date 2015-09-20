@@ -26,4 +26,5 @@ PLATFORMS
 DEPENDENCIES
   nokogiri
   rspec
+  rspec-mocks
   ruby-hmac

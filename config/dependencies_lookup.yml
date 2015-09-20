@@ -1,3 +1,4 @@
 dependencies:
-  - src_vm: gatekeeper
-    dest_vm: nginx
+  - nginx:
+  		- gatekeeper
+  		- xyz
