@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="f88bf0f8-1384-4d59-aa51-3a329f7e0e9d" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/security/firewall/rule_manager.rb" afterPath="$PROJECT_DIR$/lib/security/firewall/rule_manager.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/spec/security/firewall/rule_manager_spec.rb" afterPath="$PROJECT_DIR$/spec/security/firewall/rule_manager_spec.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="netmagicFirewallClient.iws" />
@@ -29,11 +28,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="rule_manager_spec.rb" pinned="false" current-in-tab="true">
+      <file leaf-file-name="rule_manager_spec.rb" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/spec/security/firewall/rule_manager_spec.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.41121495">
-              <caret line="38" column="45" selection-start-line="38" selection-start-column="45" selection-end-line="38" selection-end-column="45" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="17" column="47" selection-start-line="17" selection-start-column="47" selection-end-line="17" selection-end-column="47" />
               <folding>
                 <marker date="1442818339000" expanded="true" signature="322:336" placeholder="..." />
               </folding>
@@ -41,11 +40,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="rule_manager.rb" pinned="false" current-in-tab="false">
+      <file leaf-file-name="rule_manager.rb" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/security/firewall/rule_manager.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="3" column="9" selection-start-line="3" selection-start-column="9" selection-end-line="3" selection-end-column="9" />
+            <state vertical-scroll-proportion="0.24299066">
+              <caret line="101" column="0" selection-start-line="101" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -66,8 +65,8 @@
         <option value="$PROJECT_DIR$/spec/security/firewall/netmagic_client_spec.rb" />
         <option value="$USER_HOME$/.rvm/gems/ruby-2.1.1@cloudSecurity/bin/rspec" />
         <option value="$PROJECT_DIR$/lib/security/firewall/netmagic_client.rb" />
-        <option value="$PROJECT_DIR$/lib/security/firewall/rule_manager.rb" />
         <option value="$PROJECT_DIR$/spec/security/firewall/rule_manager_spec.rb" />
+        <option value="$PROJECT_DIR$/lib/security/firewall/rule_manager.rb" />
       </list>
     </option>
   </component>
@@ -544,21 +543,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/security/firewall/rule_manager.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="3" column="9" selection-start-line="3" selection-start-column="9" selection-end-line="3" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/spec/security/firewall/rule_manager_spec.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.41121495">
-          <caret line="38" column="45" selection-start-line="38" selection-start-column="45" selection-end-line="38" selection-end-column="45" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="17" column="47" selection-start-line="17" selection-start-column="47" selection-end-line="17" selection-end-column="47" />
           <folding>
             <marker date="1442818339000" expanded="true" signature="322:336" placeholder="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/security/firewall/rule_manager.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.24299066">
+          <caret line="101" column="0" selection-start-line="101" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

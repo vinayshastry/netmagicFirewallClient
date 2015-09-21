@@ -55,6 +55,7 @@ module Security
 
         compiled_rules_set = compiled_rules.uniq
 
+        # needed as the compiled rules don't have the mentioned keys and we don't want it to come up as differentiating factor when we apply '-' operator
         existing_rules_set = trim_unwanted_keys(deep_copy(@configured_rules).uniq, ["ruleno", "ruletype", "fwCompId", "protocol"]) #e
 
         new_rules_set = compiled_rules_set - existing_rules_set #nxe
@@ -98,7 +99,6 @@ module Security
         end
       end
 
-      # needed as the compiled rules don't contain the mentioned keys and we don't want it to come up as differentiating factor when we apply '-' operator
       private def trim_unwanted_keys(hashes, unwanted_keys)
         for hash in hashes do
           hash.delete_if { |key| unwanted_keys.any? { |unwanted_key| unwanted_key == key } }
