@@ -9,6 +9,7 @@ module Security
     class RuleManager
       def initialize(firewall_client)
         @firewall_client = firewall_client
+        @configured_rules = @firewall_client.get_rules.select { |rule| rule["ruleno"] > 2000 && rule["ruleno"] < 10000 }
       end
 
       # takes the rules grouped by route. in the form:
@@ -30,13 +31,13 @@ module Security
       # },
       # ...
       # ]
-      # done so as to avoid too much network calls to find out apt hash numbers; for a route(from a source zone to a dest zone)
+      # done so as to avoid redundant select calls to find out apt rule numbers; for a route(from a source zone to a dest zone)
       # getting rules associated to a route in one place will help in bulk generation of hash numbers
       private def add_rules(route_grouped_rules)
-        for route_grouped_rule in route_grouped_rules do
+        route_grouped_rules.each do |route_grouped_rule|
           src_zone = route_grouped_rule['srcIpZone']
           dest_zone = route_grouped_rule['destIpZone']
-          existing_rules = @firewall_client.get_rules.select { |rule| rule['srcIpZone'] == src_zone && rule['destIpZone'] == dest_zone }
+          existing_rules = @configured_rules.select { |rule| rule['srcIpZone'] == src_zone && rule['destIpZone'] == dest_zone }
           rule_numbers = generate_rule_numbers(existing_rules, route_grouped_rule['rules'].count)
 
           route_grouped_rule["rules"].each_with_index.map do |rule, i|
@@ -54,14 +55,13 @@ module Security
 
         compiled_rules_set = compiled_rules.uniq
 
-        untrimmed_configured_rules = get_configured_rules
-        existing_rules_set = trim_unwanted_keys(deep_copy(untrimmed_configured_rules).uniq, ["ruleno", "ruletype", "fwCompId", "protocol"])
+        existing_rules_set = trim_unwanted_keys(deep_copy(@configured_rules).uniq, ["ruleno", "ruletype", "fwCompId", "protocol"]) #e
 
-        new_rules_set = compiled_rules_set - existing_rules_set
-        obsolete_rules_set = existing_rules_set - compiled_rules_set
+        new_rules_set = compiled_rules_set - existing_rules_set #nxe
+        obsolete_rules_set = existing_rules_set - compiled_rules_set #exn
 
-        add_rules(group_by_route(new_rules_set))
-        delete_rules(untrimmed_configured_rules, obsolete_rules_set)
+        add_rules(group_by_route(new_rules_set))#(n-e)
+        delete_rules(obsolete_rules_set)
 
         {:added => new_rules_set, :removed => obsolete_rules_set}
       end
@@ -70,9 +70,9 @@ module Security
         Marshal.load(Marshal.dump(object))
       end
 
-      private def delete_rules(untrimmed_configured_rules, obsolete_rules_set)
+      private def delete_rules(obsolete_rules_set)
         for rule in obsolete_rules_set do
-          rule_matches = untrimmed_configured_rules.select { |config_rule|
+          rule_matches = @configured_rules.select { |config_rule|
             config_rule["srcIpZone"] == rule["srcIpZone"] && config_rule["destIpZone"] == rule["destIpZone"] &&
                 config_rule["sourceIp"] == rule["sourceIp"] && config_rule["destinationIp"] == rule["destinationIp"] &&
                 config_rule["destPort"] == rule["destPort"]
@@ -84,11 +84,11 @@ module Security
         end
       end
 
-      # done so that can be consumed by add hash
+      # groups and formats rules so that can be consumed by add rules
       private def group_by_route(rules)
-        group_by_fields = ["srcIpZone", 'destIpZone']
+        group_by_fields = ["srcIpZone", 'destIpZone'] # <= grouping by src zone and dest zone is grouping by route
 
-        rules.group_by { |hash| hash.values_at(*group_by_fields) }.inject([]) do |route_grouped_rules, (zones, route_rules)|
+        rules.group_by { |rule| rule.values_at(*group_by_fields) }.inject([]) do |route_grouped_rules, (zones, route_rules)|
           route_grouped_rule = {
               'srcIpZone' => zones[0],
               'destIpZone' => zones[1],
@@ -96,10 +96,6 @@ module Security
           }
           route_grouped_rules << route_grouped_rule
         end
-      end
-
-      private def get_configured_rules
-        @firewall_client.get_rules.select { |rule| rule["ruleno"] > 2000 && rule["ruleno"] < 10000 }
       end
 
       # needed as the compiled rules don't contain the mentioned keys and we don't want it to come up as differentiating factor when we apply '-' operator
